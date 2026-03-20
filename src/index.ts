@@ -35,6 +35,7 @@ app.post("/api/v1/signin", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
+  // TODO: Returns {{403 - Wrong email password}, {500 - Internal server error}}
   const existingUser = await UserModel.findOne({
     username,
     password,
@@ -90,6 +91,8 @@ app.get("/api/v1/content", userMiddleware, async (req, res) => {
 app.delete("/api/v1/content", userMiddleware, async (req, res) => {
   const contentId = req.body.contentId;
 
+  // TODO: Returns {{200 - Delete succeeded}, {403 - Trying to delete a doc you don’t own}}
+
   await ContentModel.deleteMany({
     _id: contentId,
     //@ts-ignore
@@ -103,6 +106,8 @@ app.delete("/api/v1/content", userMiddleware, async (req, res) => {
 
 app.post("/api/v1/brain/share", (req, res) => {});
 
-app.post("/api/v1/brain/:shareLink", (req, res) => {});
+app.post("/api/v1/brain/:shareLink", (req, res) => {
+  // TODO: Returns {{200: Returns username and an array of content}, {404: If the share link is invalid or sharing is disabled}}
+});
 
 app.listen(3000);
